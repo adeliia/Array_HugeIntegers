@@ -7,12 +7,20 @@ using std::istream;
 
 class Array {
     friend ostream &operator<<( ostream &, const Array &);
-    friend istream &operator>>( istream &, Array &);
+//    friend istream &operator>>( istream &, Array &);
 public:
-    Array(int = 10);
-    Array(const Array &);
+    Array(unsigned int = 10);
+//    Array(const Array &);
+    Array(const char *);
     ~Array();
-    int getSize() const;
+    unsigned int getSize() const;
+
+    // Array + Array
+    Array operator+(const Array &) const;
+    // Array + int
+    Array operator+(const int) const;
+    //Array + string
+    Array operator+(const char *) const;
 
     const Array &operator=(const Array &);
     bool operator==( const Array &) const;
@@ -21,11 +29,11 @@ public:
         return ! (*this == right);
     }
 
-    int &operator[](int);
-    int operator[](int) const;
 private:
-    int size;
+    unsigned int size;
     int *ptr;
 };
+
+unsigned int getLongerLength(const Array a1,const Array &a2);
 
 #endif // ARRAY_H
