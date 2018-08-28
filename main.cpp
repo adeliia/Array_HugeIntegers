@@ -9,7 +9,7 @@ int main()
 {
 
     Array integers1("9999");
-    Array integers2("1337");
+    Array integers2("37");
 
     cout << "integers is " << integers1 << endl;
     cout << "Size of Array integeral1 is "  << integers1.getSize() << endl;

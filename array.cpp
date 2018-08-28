@@ -46,19 +46,19 @@ unsigned int Array::getSize() const {
 }
 
 unsigned int getLongerLength(const Array *a1, const Array &a2) {
-    return (a1->getSize() <= a2.getSize() ? a1->getSize() : a2.getSize());
+    return (a1->getSize() >= a2.getSize() ? a1->getSize() : a2.getSize());
 }
 
 // Array + Arrays
 Array Array::operator+(const Array &op2) const {
     unsigned int tempLength = (getLongerLength(this, op2) + 1);
-//    cout << "tempLength = " << tempLength << "\n";
+    cout << "tempLength = " << tempLength << "\n";
     Array temp(tempLength);
 
 //    cout << temp << endl;
     int carry = 0;
 
-    if (this->getSize() == op2.getSize()) {
+//    if (this->getSize() == op2.getSize()) {
         for (int i = static_cast<int>(tempLength); i > 0; i-- ) {
 //            cout << "carry " << carry << endl;
             temp.ptr[i] = (static_cast<int>(this->getSize())>(i-1)? this->ptr[i-1]: 0)
@@ -72,7 +72,7 @@ Array Array::operator+(const Array &op2) const {
                 carry = 0;
             }
         }
-    }
+//    }
     if (carry == 1)
         temp.ptr[0] = 1;
 
