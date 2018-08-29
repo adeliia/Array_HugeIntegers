@@ -8,8 +8,8 @@ using std::endl;
 int main()
 {
 
-    Array integers1("9999");
-    Array integers2("37");
+    Array integers1("9998");
+    Array integers2("123");
 
     cout << "integers is " << integers1 << endl;
     cout << "Size of Array integeral1 is "  << integers1.getSize() << endl;
@@ -19,7 +19,11 @@ int main()
 
     cout << integers1 << " + " << integers2 << " = " << integers1 + integers2 << endl;
 
+    Array hugeInt1("9999");
+    Array hugeInt2("9");
 
+    cout << "Is hugeInt1 equal to hugeInt2: " << std::boolalpha << (hugeInt1 == hugeInt2) << endl;
+    cout << hugeInt1 << " - " << hugeInt2 << " = " << hugeInt1 - hugeInt2 << endl;
 
     return 0;
 }

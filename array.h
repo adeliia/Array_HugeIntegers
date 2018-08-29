@@ -15,12 +15,8 @@ public:
     ~Array();
     unsigned int getSize() const;
 
-    // Array + Array
     Array operator+(const Array &) const;
-    // Array + int
-    Array operator+(const int) const;
-    //Array + string
-    Array operator+(const char *) const;
+    Array operator-(const Array &) const;
 
     const Array &operator=(const Array &);
     bool operator==( const Array &) const;

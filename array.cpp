@@ -52,33 +52,45 @@ unsigned int getLongerLength(const Array *a1, const Array &a2) {
 // Array + Arrays
 Array Array::operator+(const Array &op2) const {
     unsigned int tempLength = (getLongerLength(this, op2) + 1);
-    cout << "tempLength = " << tempLength << "\n";
-    Array temp(tempLength);
+    int thisSize = static_cast<int>(this->getSize());
+    int op2Size = static_cast<int>(op2.getSize());
 
-//    cout << temp << endl;
+    Array temp(tempLength);
     int carry = 0;
 
-//    if (this->getSize() == op2.getSize()) {
-        for (int i = static_cast<int>(tempLength); i > 0; i-- ) {
-//            cout << "carry " << carry << endl;
-            temp.ptr[i] = (static_cast<int>(this->getSize())>(i-1)? this->ptr[i-1]: 0)
-                    +  (static_cast<int>(op2.getSize()) >(i-1) ? op2.ptr[i-1] : 0) + carry;
-//            cout << temp << endl;
+        for (int i = (static_cast<int>(tempLength)-1),j = (thisSize-1), k = (op2Size-1);
+             i >= 0; i--, j--, k-- ) {
+            temp.ptr[i] = ( j >= 0 ? this->ptr[j] : 0)
+                    +  (k >= 0 ? op2.ptr[k] : 0) + carry;
+
             if(temp.ptr[i] > 9) {
                 temp.ptr[i] %= 10;
-//                cout << "\ngot here\n";
                 carry = 1;
             } else {
                 carry = 0;
             }
         }
-//    }
+
     if (carry == 1)
         temp.ptr[0] = 1;
 
     return temp;
 }
 
+Array Array::operator-(const Array &op2) const {
+    unsigned int tempLength = (getLongerLength(this, op2));
+    int thisSize = static_cast<int>(this->getSize());
+    int op2Size = static_cast<int>(op2.getSize());
+
+    Array temp(tempLength);
+
+    for (int i = (static_cast<int>(tempLength)-1), j = (thisSize-1), k = (op2Size-1);
+         i >= 0; i--, j--, k-- ) {
+        temp.ptr[i] = ( j >= 0 ? this->ptr[j] : 0)
+                -  ( k >= 0 ? op2.ptr[k] : 0);
+    }
+    return temp;
+}
 
 const Array &Array::operator=(const Array &right) {
     if (&right != this){
