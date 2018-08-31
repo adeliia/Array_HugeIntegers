@@ -82,13 +82,48 @@ Array Array::operator-(const Array &op2) const {
     int thisSize = static_cast<int>(this->getSize());
     int op2Size = static_cast<int>(op2.getSize());
 
+    int carry = 0;
+
     Array temp(tempLength);
 
     for (int i = (static_cast<int>(tempLength)-1), j = (thisSize-1), k = (op2Size-1);
          i >= 0; i--, j--, k-- ) {
-        temp.ptr[i] = ( j >= 0 ? this->ptr[j] : 0)
-                -  ( k >= 0 ? op2.ptr[k] : 0);
+
+        int a = ( j >= 0 ? this->ptr[j] : 0);
+        int b = ( k >= 0 ? op2.ptr[k] : 0);
+
+        if ( a - carry >= b) {
+            temp.ptr[i] = (a - carry) - b;
+            carry = 0;
+        }
+        else {
+            temp.ptr[i] = (10 + a - carry) - b;
+            carry = 1;
+        }
     }
+    return temp;
+}
+
+Array Array::operator*(const Array &op2) const {
+    unsigned int tempSize = this->getSize() * op2.getSize();
+    int thisSize = static_cast<int>(this->getSize());
+    int op2Size = static_cast<int>(op2.getSize());
+
+    Array temp (tempSize);
+
+    int carry = 0;
+
+    for (int j = (thisSize - 1); j >= 0; j--) {
+        for (int k = (op2Size - 1); k >= 0; k--) {
+            temp.ptr[j + k] += this->ptr[j] * op2.ptr[k] + carry ;
+            if (temp.ptr[j + k] > 9) {
+                carry = temp.ptr[j + k]/10;
+                temp.ptr[j + k] %= 10;
+            }
+            else carry = 0;
+        }
+    }
+
     return temp;
 }
 

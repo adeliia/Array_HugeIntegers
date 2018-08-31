@@ -17,6 +17,7 @@ public:
 
     Array operator+(const Array &) const;
     Array operator-(const Array &) const;
+    Array operator*(const Array &) const;
 
     const Array &operator=(const Array &);
     bool operator==( const Array &) const;
