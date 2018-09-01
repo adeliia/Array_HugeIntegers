@@ -18,9 +18,11 @@ public:
     Array operator+(const Array &) const;
     Array operator-(const Array &) const;
     Array operator*(const Array &) const;
+    int operator/(const Array &) const;
 
     const Array &operator=(const Array &);
     bool operator==( const Array &) const;
+    bool operator<(const Array &) const;
 
     bool operator!=( const Array &right) const {
         return ! (*this == right);

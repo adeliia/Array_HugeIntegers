@@ -20,7 +20,7 @@ int main()
     cout << integer1 << " + " << integer2 << " = " << integer1 + integer2 << endl << endl;
 
     Array hugeInt1("2999");
-    Array hugeInt2("1999");
+    Array hugeInt2("1259");
     Array hugeInt3("199123450");
     Array hugeInt4("199123450");
 
@@ -34,9 +34,24 @@ int main()
     cout << endl;
 
     Array hugeInt5("12345");
-    Array hugeInt6("15");
+    Array hugeInt6("2195");
 
     cout << hugeInt5 << " * " << hugeInt6 << " = " << hugeInt5 * hugeInt6 << endl;
     cout << endl;
+
+    Array hugeInt7("369");
+    Array hugeInt8("123");
+
+//    cout << hugeInt7 << " / " << hugeInt8 << " = " << hugeInt7 / hugeInt8 << endl;
+    cout << endl;
+
+//    cout << hugeInt7 << " < " <<
+                  hugeInt8 << ": " << std::boolalpha << (hugeInt7 < hugeInt8) << endl;
+//    cout << hugeInt8 << " < " <<
+                  hugeInt7 << ": " << std::boolalpha << (hugeInt8 < hugeInt7) << endl;
+    cout << endl;
+
+
+
     return 0;
 }

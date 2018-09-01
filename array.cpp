@@ -8,6 +8,8 @@ using std::isdigit;
 #include <cstring>
 using std::strlen;
 
+#include <cmath>
+
 #include "array.h"
 
 Array::Array(unsigned int arraySize) {
@@ -111,20 +113,41 @@ Array Array::operator*(const Array &op2) const {
 
     Array temp (tempSize);
 
-    int carry = 0;
-
     for (int j = 0; j < thisSize; j++) {
         for (int k = 0; k < op2Size; k++) {
-            temp.ptr[j + k] += this->ptr[j] * op2.ptr[k] + carry ;
+            temp.ptr[j + k] += this->ptr[j] * op2.ptr[k];
+            // carry
             if (temp.ptr[j + k] > 9) {
-                carry = temp.ptr[j + k]/10;
+                temp.ptr[j + k + 1] += temp.ptr[j + k]/10;
                 temp.ptr[j + k] %= 10;
             }
-            else carry = 0;
+
         }
     }
-
     return temp;
+}
+
+int Array::operator/(const Array &op2) const {
+//     naive
+    unsigned int tempSize = getLongerLength(this, op2);
+    Array temp(tempSize);
+    int result = 0;
+
+    for (int i = 0; i < 5; i++) {
+        temp = temp + op2;
+        cout << *this << " < " <<  temp <<" " << (*this < temp) << endl;
+        result++;
+    }
+
+//    do {
+//        temp = temp + op2;
+////        cout << "temp " << temp << endl;
+////        cout << "this " << *this << endl;
+//        result++;
+//    }
+//    while (*this < temp);
+
+    return result;
 }
 
 const Array &Array::operator=(const Array &right) {
@@ -140,7 +163,14 @@ const Array &Array::operator=(const Array &right) {
     return *this;
 }
 
+//bool Array::operator<(const Array &right) const {
+//    for (int i = 0; i < size; i++) {
+//        if (ptr[i] < right.ptr[i])
+//    }
+//}
+
 bool Array::operator==(const Array &right) const {
+    // CHECK: works with nulls in front?
     if(size != right.size)
         return false;
     for (unsigned int i = 0; i < size; i++)
@@ -149,15 +179,13 @@ bool Array::operator==(const Array &right) const {
     return true;
 }
 
-
-
 //istream &operator>> ( istream &input, Array &a) {
 //    for (unsigned int i = 0; i < a.size; i++)
 //        input >> a.ptr[i];
 //    return input;
 //}
 
-ostream &operator<< ( ostream &output, const Array &num) {
+ostream &operator<<( ostream &output, const Array &num) {
     int i;
 
     // skip the first zeros
@@ -165,7 +193,7 @@ ostream &operator<< ( ostream &output, const Array &num) {
 
     if (i > 0)
         for ( ; i >= 0; i--) output << num.ptr[i];
-    else cout << 0; // if all of the digits are zero
+    else cout << num.ptr[0];
 
     return  output;
 }
