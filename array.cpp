@@ -31,7 +31,7 @@ Array::Array(const char * string)
 {
     ptr = new int[size];
 
-    for (unsigned int j = 0, k = 0; j <= strlen(string); j++, k++) {
+    for (int j = static_cast<int>(strlen(string))-1, k = 0; j >= 0; j--, k++) {
         if (isdigit(string[k]))
             ptr[j] = string[k] - '0';
     }
@@ -58,10 +58,10 @@ Array Array::operator+(const Array &op2) const {
     Array temp(tempLength);
     int carry = 0;
 
-        for (int i = (static_cast<int>(tempLength)-1),j = (thisSize-1), k = (op2Size-1);
-             i >= 0; i--, j--, k-- ) {
-            temp.ptr[i] = ( j >= 0 ? this->ptr[j] : 0)
-                    +  (k >= 0 ? op2.ptr[k] : 0) + carry;
+        for (int i = 0,j = 0, k = 0;
+             i < static_cast<int>(tempLength); i++, j++, k++ ) {
+            temp.ptr[i] = ( j < thisSize ? this->ptr[j] : 0)
+                    +  (k < op2Size ? op2.ptr[k] : 0) + carry;
 
             if(temp.ptr[i] > 9) {
                 temp.ptr[i] %= 10;
@@ -86,11 +86,11 @@ Array Array::operator-(const Array &op2) const {
 
     Array temp(tempLength);
 
-    for (int i = (static_cast<int>(tempLength)-1), j = (thisSize-1), k = (op2Size-1);
-         i >= 0; i--, j--, k-- ) {
+    for (int i = 0, j = 0, k = 0;
+         i < static_cast<int>(tempLength); i++, j++, k++ ) {
 
-        int a = ( j >= 0 ? this->ptr[j] : 0);
-        int b = ( k >= 0 ? op2.ptr[k] : 0);
+        int a = ( j < thisSize ? this->ptr[j] : 0);
+        int b = ( k < op2Size ? op2.ptr[k] : 0);
 
         if ( a - carry >= b) {
             temp.ptr[i] = (a - carry) - b;
@@ -113,8 +113,8 @@ Array Array::operator*(const Array &op2) const {
 
     int carry = 0;
 
-    for (int j = (thisSize - 1); j >= 0; j--) {
-        for (int k = (op2Size - 1); k >= 0; k--) {
+    for (int j = 0; j < thisSize; j++) {
+        for (int k = 0; k < op2Size; k++) {
             temp.ptr[j + k] += this->ptr[j] * op2.ptr[k] + carry ;
             if (temp.ptr[j + k] > 9) {
                 carry = temp.ptr[j + k]/10;
@@ -158,9 +158,14 @@ bool Array::operator==(const Array &right) const {
 //}
 
 ostream &operator<< ( ostream &output, const Array &num) {
-    unsigned int i;
-    for (i=0; i < num.size; i++)
-        output << num.ptr[i];
+    int i;
+
+    // skip the first zeros
+    for (i = static_cast<int>(num.size)-1; num.ptr[i] == 0; i-- ){};
+
+    if (i > 0)
+        for ( ; i >= 0; i--) output << num.ptr[i];
+    else cout << 0; // if all of the digits are zero
 
     return  output;
 }

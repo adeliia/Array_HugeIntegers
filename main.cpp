@@ -8,27 +8,35 @@ using std::endl;
 int main()
 {
 
-    Array integers1("9998");
-    Array integers2("123");
+    Array integer1("9998");
+    Array integer2("123");
 
-    cout << "integers is " << integers1 << endl;
-    cout << "Size of Array integeral1 is "  << integers1.getSize() << endl;
+    cout << "integer1 is " << integer1 << endl;
+    cout << "Size of Array integeral1 is "  << integer1.getSize() << endl << endl;
 
-    cout << "integers is " << integers2 << endl;
-    cout << "Size of Array integeral2 is "  << integers2.getSize() << endl;
+    cout << "integer2 is " << integer2 << endl;
+    cout << "Size of Array integeral2 is "  << integer2.getSize() << endl << endl;
 
-    cout << integers1 << " + " << integers2 << " = " << integers1 + integers2 << endl;
+    cout << integer1 << " + " << integer2 << " = " << integer1 + integer2 << endl << endl;
 
-    Array hugeInt1("1990");
-    Array hugeInt2("989");
+    Array hugeInt1("2999");
+    Array hugeInt2("1999");
+    Array hugeInt3("199123450");
+    Array hugeInt4("199123450");
 
-    cout << "Is hugeInt1 equal to hugeInt2: " << std::boolalpha << (hugeInt1 == hugeInt2) << endl;
+    cout << "Is " << hugeInt1 << " equal to " <<
+                  hugeInt2 << ": " << std::boolalpha << (hugeInt1 == hugeInt2) << endl;
+    cout << "Is " << hugeInt3 << " equal to " <<
+                  hugeInt4 << ": " << std::boolalpha << (hugeInt3 == hugeInt4) << endl;
+    cout << endl;
+
     cout << hugeInt1 << " - " << hugeInt2 << " = " << hugeInt1 - hugeInt2 << endl;
+    cout << endl;
 
-    Array hugeInt3("12345");
-    Array hugeInt4("15");
+    Array hugeInt5("12345");
+    Array hugeInt6("15");
 
-    cout << hugeInt3 << " * " << hugeInt4 << " = " << hugeInt3 * hugeInt4 << endl;
-
+    cout << hugeInt5 << " * " << hugeInt6 << " = " << hugeInt5 * hugeInt6 << endl;
+    cout << endl;
     return 0;
 }
