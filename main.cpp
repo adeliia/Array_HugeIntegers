@@ -8,50 +8,88 @@ using std::endl;
 int main()
 {
 
-    Array integer1("9998");
-    Array integer2("123");
+    LongInt int1 ("200000000000000000000000000060");
+    LongInt int2 ("200000000000000000000000000020");
+    LongInt int3 ("40");
+    LongInt int4 ("-10000");
+    LongInt int5 ("-10");
+    LongInt int6 ("9999999999999");
+    LongInt int7 ("1");
+    LongInt int8 ("10000000000000");
+    LongInt int9 ("-200000000000000000000000000060");
+    LongInt int10 ("6");
+    LongInt int11 ("-146");
 
-    cout << "integer1 is " << integer1 << endl;
-    cout << "Size of Array integeral1 is "  << integer1.getSize() << endl << endl;
 
-    cout << "integer2 is " << integer2 << endl;
-    cout << "Size of Array integeral2 is "  << integer2.getSize() << endl << endl;
-
-    cout << integer1 << " + " << integer2 << " = " << integer1 + integer2 << endl << endl;
-
-    Array hugeInt1("2999");
-    Array hugeInt2("1259");
-    Array hugeInt3("199123450");
-    Array hugeInt4("199123450");
-
-    cout << "Is " << hugeInt1 << " equal to " <<
-                  hugeInt2 << ": " << std::boolalpha << (hugeInt1 == hugeInt2) << endl;
-    cout << "Is " << hugeInt3 << " equal to " <<
-                  hugeInt4 << ": " << std::boolalpha << (hugeInt3 == hugeInt4) << endl;
+    cout << "The integers:\n";
+    cout << "int1 "<< int1 << endl;
+    cout << "int2 "<< int2 << endl;
+    cout << "int3 "<< int3 << endl;
+    cout << "int4 "<< int4 << endl;
+    cout << "int5 "<< int5 << endl;
+    cout << "int6 "<< int6 << endl;
+    cout << "int7 "<< int7 << endl;
+    cout << "int8 "<< int8 << endl;
+    cout << "int9 "<< int9 << endl;
+    cout << "int10 "<< int10 << endl;
+    cout << "int11 "<< int11 << endl;
     cout << endl;
 
-    cout << hugeInt1 << " - " << hugeInt2 << " = " << hugeInt1 - hugeInt2 << endl;
+    cout << "Addition test:\n";
+    cout << int1 << " + " << int2 << " = " << int1 + int2 << endl;
+    cout << int2 << " + " << int3 << " = " << int2 + int3 << endl;
+    cout << int3 << " + " << int4 << " = " << int3 + int4 << endl;
+    cout << int4 << " + " << int3 << " = " << int4 + int3 << endl;
+    cout << int4 << " + " << int4 << " = " << int4 + int4 << endl;
+    cout << int3 << " + " << int3 << " = " << int3 + int3 << endl;
+    cout << int4 << " + " << int5 << " = " << int4 + int5 << endl;
+    cout << int7 << " + " << int6 << " = " << int7 + int6 << endl;
+    cout << int8 << " + " << int6 << " = " << int8 + int6 << endl;
+    cout << int9 << " + " << int6 << " = " << int9 + int6 << endl;
+    cout << int10 << " + " << int11 << " = " << int9 + int6 << endl;
     cout << endl;
 
-    Array hugeInt5("12345");
-    Array hugeInt6("2195");
-
-    cout << hugeInt5 << " * " << hugeInt6 << " = " << hugeInt5 * hugeInt6 << endl;
+    cout << "Subtraction test:\n";
+    cout << int1 << " - " << int2 << " = " << int1 - int2 << endl;
+    cout << int2 << " - " << int3 << " = " << int2 - int3 << endl;
+    cout << int3 << " - " << int4 << " = " << int3 - int4 << endl;
+    cout << int4 << " - " << int3 << " = " << int4 - int3 << endl;
+    cout << int4 << " - " << int4 << " = " << int4 - int4 << endl;
+    cout << int3 << " - " << int3 << " = " << int3 - int3 << endl;
+    cout << int4 << " - " << int5 << " = " << int4 - int5 << endl;
+    cout << int7 << " - " << int6 << " = " << int7 - int6 << endl;
+    cout << int8 << " - " << int6 << " = " << int8 - int6 << endl;
+    cout << int9 << " - " << int6 << " = " << int9 - int6 << endl;
+    cout << int10 << " - " << int11 << " = " << int10 - int11 << endl;
     cout << endl;
 
-    Array hugeInt7("369");
-    Array hugeInt8("123");
-
-//    cout << hugeInt7 << " / " << hugeInt8 << " = " << hugeInt7 / hugeInt8 << endl;
+    cout << "Multiplication test:\n";
+    cout << int1 << " * " << int2 << " = " << int1 * int2 << endl;
+    cout << int2 << " * " << int3 << " = " << int2 * int3 << endl;
+    cout << int3 << " * " << int4 << " = " << int3 * int4 << endl;
+    cout << int4 << " * " << int3 << " = " << int4 * int3 << endl;
+    cout << int4 << " * " << int4 << " = " << int4 * int4 << endl;
+    cout << int3 << " * " << int3 << " = " << int3 * int3 << endl;
+    cout << int4 << " * " << int5 << " = " << int4 * int5 << endl;
+    cout << int7 << " * " << int6 << " = " << int7 * int6 << endl;
+    cout << int8 << " * " << int6 << " = " << int8 * int6 << endl;
+    cout << int9 << " * " << int6 << " = " << int9 * int6 << endl;
+    cout << int10 << " * " << int11 << " = " << int10 * int11 << endl;
     cout << endl;
 
-//    cout << hugeInt7 << " < " <<
-                  hugeInt8 << ": " << std::boolalpha << (hugeInt7 < hugeInt8) << endl;
-//    cout << hugeInt8 << " < " <<
-                  hugeInt7 << ": " << std::boolalpha << (hugeInt8 < hugeInt7) << endl;
+    cout << "Multiplication test:\n";
+    cout << int1 << " * " << int2 << " = " << int1 * int2 << endl;
+    cout << int2 << " * " << int3 << " = " << int2 * int3 << endl;
+    cout << int3 << " * " << int4 << " = " << int3 * int4 << endl;
+    cout << int4 << " * " << int3 << " = " << int4 * int3 << endl;
+    cout << int4 << " * " << int4 << " = " << int4 * int4 << endl;
+    cout << int3 << " * " << int3 << " = " << int3 * int3 << endl;
+    cout << int4 << " * " << int5 << " = " << int4 * int5 << endl;
+    cout << int7 << " * " << int6 << " = " << int7 * int6 << endl;
+    cout << int8 << " * " << int6 << " = " << int8 * int6 << endl;
+    cout << int9 << " * " << int6 << " = " << int9 * int6 << endl;
+    cout << int10 << " * " << int11 << " = " << int10 * int11 << endl;
     cout << endl;
-
-
 
     return 0;
 }

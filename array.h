@@ -5,34 +5,38 @@
 using std::ostream;
 using std::istream;
 
-class Array {
-    friend ostream &operator<<( ostream &, const Array &);
-//    friend istream &operator>>( istream &, Array &);
+class LongInt {
+    friend ostream &operator<<( ostream &, const LongInt &);
 public:
-    Array(unsigned int = 10);
-//    Array(const Array &);
-    Array(const char *);
-    ~Array();
+    LongInt(unsigned int = 10);
+    LongInt(const char *);
+    ~LongInt();
     unsigned int getSize() const;
 
-    Array operator+(const Array &) const;
-    Array operator-(const Array &) const;
-    Array operator*(const Array &) const;
-    int operator/(const Array &) const;
+    int getSign() const;
 
-    const Array &operator=(const Array &);
-    bool operator==( const Array &) const;
-    bool operator<(const Array &) const;
+    LongInt _plus(const LongInt &a, int sign) const;
+    LongInt _minus(const LongInt &a, int sign) const;
+    bool isBiggerByAbs(const LongInt &) const;
 
-    bool operator!=( const Array &right) const {
+    LongInt operator+(const LongInt &) const;
+    LongInt operator-(const LongInt &) const;
+    LongInt operator*(const LongInt &) const;
+    int operator/(const LongInt &) const;
+
+    const LongInt &operator=(const LongInt &);
+    bool operator==( const LongInt &) const;
+
+    bool operator!=( const LongInt &right) const {
         return ! (*this == right);
     }
 
 private:
     unsigned int size;
     int *ptr;
+    int sign;
 };
 
-unsigned int getLongerLength(const Array a1,const Array &a2);
+unsigned int getLongerLength(const LongInt a1,const LongInt &a2);
 
 #endif // ARRAY_H
