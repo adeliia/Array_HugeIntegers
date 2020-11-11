@@ -8,4 +8,5 @@ SOURCES += \
     array.cpp
 
 HEADERS += \
-    array.h
+    array.h \
+    devidebyzeroexception.h

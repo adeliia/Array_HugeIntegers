@@ -1,6 +1,7 @@
 #include <iostream>
 using std::cout;
 using std::endl;
+using std::pair;
 
 #include <cctype>
 using std::isdigit;
@@ -11,6 +12,7 @@ using std::strlen;
 #include <cmath>
 
 #include "array.h"
+#include "devidebyzeroexception.h"
 
 LongInt::LongInt(unsigned int arraySize) {
     size = (arraySize > 0 ? arraySize : 10);
@@ -37,12 +39,24 @@ LongInt::LongInt(const char * string)
     }
 }
 
+LongInt::LongInt(const LongInt &copy):
+    size(copy.size), ptr(copy.ptr), sign(copy.sign)
+{
+    {
+//        std::cout << "Copy constructor worked here!\n";
+    }
+}
+
 LongInt::~LongInt(){
     delete [] ptr;
 }
 
 int LongInt::getSign() const {
     return sign;
+}
+
+void LongInt::setSign(int sign) {
+    this->sign = sign;
 }
 
 unsigned int LongInt::getSize() const {
@@ -54,12 +68,27 @@ unsigned int getLongerLength(const LongInt *a1, const LongInt &a2) {
 }
 
 bool LongInt::isBiggerByAbs(const LongInt & op2) const {
+    int thisSize = this->getSize();
+    int newthisSize = this->getSize();
+    int op2Size = op2.getSize();
+    int newop2Size = op2.getSize();
+
+    //ignore zeros at the begining if there are any
+    for (int i=thisSize-1; i>=0; i--) {
+        if(this->ptr[i]==0) {newthisSize-=1;}
+        else {break;}
+    }
+    for (int i=op2Size-1; i>=0; i--) {
+        if(op2.ptr[i]==0) {newop2Size-=1;}
+        else {break;}
+    }
+
     // if this' size is longer than op2's
-    if(this->getSize() > op2.getSize()){return true;}
+    if(newthisSize > newop2Size){return true;}
     else
         // if this' size is equal to op2's
-        if (this->getSize() == op2.getSize()){
-            for (int i=this->getSize()-1; i >= 0 ; i--) {
+        if (newthisSize == newop2Size){
+            for (int i=newthisSize-1; i >= 0 ; i--) {
                 if (this->ptr[i] > op2.ptr[i]) {return true;}
                 else if (this->ptr[i] < op2.ptr[i]) {return false;}
             }
@@ -68,6 +97,23 @@ bool LongInt::isBiggerByAbs(const LongInt & op2) const {
         else {return false;}
     // if the compared numbers are equal, there is no difference in the order
     return true;
+}
+
+bool LongInt::operator>(const LongInt &op2) const {
+    // this>0, op2<0
+    if(this->getSign()==1 && op2.getSign()==-1) {
+        return true;
+    }
+    // this<0, op2<0
+    else if (this->getSign()==-1 && op2.getSign()==-1) {
+        if (this->isBiggerByAbs(op2)) {return false;}
+        else {return true;}
+    }
+    // this>0, op2>0
+    else {
+        if (this->isBiggerByAbs(op2)) {return true;}
+        else {return false;}
+    }
 }
 
 LongInt LongInt::_plus(const LongInt &op2, int sign) const {
@@ -196,14 +242,59 @@ LongInt LongInt::operator*(const LongInt &op2) const {
                 temp.ptr[j + k + 1] += temp.ptr[j + k]/10;
                 temp.ptr[j + k] %= 10;
             }
-
         }
     }
     return temp;
 }
 
+LongInt LongInt::operator=(const LongInt & op2) const {
+    for (int i = 0; i < static_cast<int>(this->getSize()); i++) {
+        ptr[i] = op2.ptr[i];
+    }
+    return *this;
+}
 
-ostream &operator<<( ostream &output, const LongInt &num) {
+pair<int,LongInt> LongInt::operator/(const LongInt &op2) const {
+    // "devided by zero" exception catch
+    int first_digit = op2.getSize()-1;
+    if (op2.getSign()==-1) {first_digit=-1;}
+    if (op2.ptr[first_digit]=='0' - '0') {
+        throw DivideByZeroException{};
+    }
+
+    int thisSize = static_cast<int>(this->getSize());
+    int op2Size = static_cast<int>(op2.getSize());
+
+    // if any of any of integers are negative ignore the '-' in the string
+    if (this->getSign()==-1) {thisSize-=1;}
+    if (op2.getSign()==-1) {op2Size-=1;}
+
+    LongInt temp (*this);
+    temp.setSign(1);
+
+    int res = 0;
+
+    while (temp.isBiggerByAbs(op2)) {
+        temp = temp._minus(op2,1);
+        res += 1;
+    }
+
+    // the sign
+    if ((this->getSign()==-1 && op2.getSign()==-1)||
+         (this->getSign()==1 && op2.getSign()==1)) {
+        res *= 1;
+    }
+    else res *= -1;
+
+    // return the initial sign if the res is 0
+    if (res == 0) {
+        temp.setSign(this->getSign());
+    }
+
+    return pair<int,LongInt>(res,temp);
+}
+
+ostream &operator<<(ostream &output, const LongInt &num) {
     int i;
     int start = static_cast<int>(num.size)-1;
     if (num.getSign()==-1) {
